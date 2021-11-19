@@ -27,6 +27,13 @@ const input = {
     },
 };
 
-let output = JSON.parse(solc.compile(JSON.stringify(input)));
+const compiledCode = solc.compile(JSON.stringify(input));
+let output = JSON.parse(compiledCode);
 
-console.log(output["contracts"]["Inbox.sol"]["Inbox"]);
+const abi = output["contracts"]["Inbox.sol"]["Inbox"].abi;
+const bytecode = output["contracts"]["Inbox.sol"]["Inbox"].evm.bytecode.object;
+
+export default {
+    interface: abi,
+    bytecode,
+};
